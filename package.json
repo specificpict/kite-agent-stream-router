@@ -1,0 +1,29 @@
+{
+  "name": "@specificpict/kite-agent-stream-router",
+  "version": "1.0.0",
+  "description": "High-Throughput x402 Micropayment Routing & Autonomous AI Agent Workload Dispatcher on Kite Blockchain (EIP-155: 2366 / 2368)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/test/*.js"
+  },
+  "keywords": [
+    "kite-ai",
+    "micropayments",
+    "stream-router",
+    "x402",
+    "ai-agent",
+    "solidity",
+    "web3"
+  ],
+  "author": "specificpict <specificpict@users.noreply.github.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "ethers": "^6.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.4.5"
+  }
+}

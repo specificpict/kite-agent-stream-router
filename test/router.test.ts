@@ -69,3 +69,15 @@ describe("Receipt Verifier Test Suite", () => {
     }, /Receipt replay detected/);
   });
 });
+import { ProviderHeartbeatMonitor } from "../src/index";
+
+describe("Provider Heartbeat Monitor Suite", () => {
+  it("should track provider liveness and detect timeout degradation", () => {
+    const monitor = new ProviderHeartbeatMonitor(50n);
+    const provider = "0x9999999999999999999999999999999999999999";
+
+    monitor.recordHeartbeat(provider, 1000n);
+    assert.strictEqual(monitor.assessHealth(provider, 1030n), true);
+    assert.strictEqual(monitor.assessHealth(provider, 1060n), false); // Exceeded 50 slots
+  });
+});

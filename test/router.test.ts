@@ -48,3 +48,24 @@ describe("Kite Agent Stream Router Test Suite", () => {
     assert.strictEqual(route.totalAmount, 10000n);
   });
 });
+import { ReceiptVerifier } from "../src/index";
+
+describe("Receipt Verifier Test Suite", () => {
+  it("should record valid receipt and prevent replay attacks", () => {
+    const verifier = new ReceiptVerifier();
+    const receipt = {
+      receiptId: "0xreceipt_test_abc",
+      payer: "0x1111111111111111111111111111111111111111",
+      totalAmount: 500000n,
+      timestamp: Date.now(),
+      nonce: 1n,
+    };
+
+    assert.strictEqual(verifier.verifyAndRegisterReceipt(receipt), true);
+    assert.strictEqual(verifier.isReceiptExecuted("0xreceipt_test_abc"), true);
+
+    assert.throws(() => {
+      verifier.verifyAndRegisterReceipt(receipt);
+    }, /Receipt replay detected/);
+  });
+});

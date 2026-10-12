@@ -81,3 +81,17 @@ describe("Provider Heartbeat Monitor Suite", () => {
     assert.strictEqual(monitor.assessHealth(provider, 1060n), false); // Exceeded 50 slots
   });
 });
+import { FeeSplitDistributor } from "../src/index";
+
+describe("Fee Split Distributor Suite", () => {
+  it("should calculate exact distribution shares and account for dust", () => {
+    const report = FeeSplitDistributor.distribute(10005n, [
+      { recipient: "0x111", bps: 5000 },
+      { recipient: "0x222", bps: 5000 },
+    ]);
+
+    assert.strictEqual(report.shares[0].amount, 5002n);
+    assert.strictEqual(report.shares[1].amount, 5002n);
+    assert.strictEqual(report.dustRefund, 1n); // 1 wei dust
+  });
+});
